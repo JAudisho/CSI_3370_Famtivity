@@ -1,3 +1,5 @@
+- Utilizing Bootstrap and HTML
+
 # Famtivity  
 ## An Extracurricular Planning Application  
 ### By Anthony Aljida, Andrew Aguilar, Emily Burley, and Julius Audisho
