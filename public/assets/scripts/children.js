@@ -1,9 +1,7 @@
-function saveAndClear() {
-  const form = document.querySelector("form");
+document.querySelector(".btn-success").addEventListener("click", function () {
+  const form = document.getElementById("myform");
   const formData = new FormData(form);
-  const output = document.querySelector("form");
 
-  // Create a new section to display the entered information
   const section = document.createElement("div");
 
   formData.forEach((value, key) => {
@@ -14,10 +12,8 @@ function saveAndClear() {
   });
 
   // Append the new section to the output container
-  output.appendChild(section);
+  document.querySelector(".output").appendChild(section);
 
   // Clear the form
   form.reset();
-}
-
-document.querySelector(".btn-success").addEventListener("click", saveAndClear);
+});
