@@ -22,7 +22,7 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', sqlite3.OPEN_READWR
     console.log('Connected to the child database resource... Awaiting input...');
   });
 
-//Post API for database
+//Post API for database and update the HTML
 
 app.post('/children.html', (req, res, next) => {
     child_db.serialize(()=>{
@@ -43,6 +43,26 @@ app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+app.get('/public/children.html', (req, res)=>{
+    var itrtr;
+    child_db.serialize(()=>{
+        child_db.each('SELECT from child_db_data;',
+            function (err, row) {
+                if (err) {
+                    res.status(400).json({ "Database could not be scanned!": err.message })
+                    return;
+                }
+                console.log('${row.Child_First_Name}');
+            });
+        });
+
+
+    res.sendFile(path.join(__dirname, 'public/children.html'));
+    app.listen(port, () => {
+        console.log(`Index page get`)
+      })
+});
+
 app.post('/', (req, res) => {
     res.send('POST request to the homepage')
   })
@@ -54,6 +74,7 @@ app.get('/public/index.html', (req, res)=>{
         console.log(`Index page get`)
       })
 });
+
 
 app.get('/public/about.html', (req, res)=>{ 
     res.sendFile(path.join(__dirname, 'public/about.html'));
@@ -87,20 +108,6 @@ app.listen(port, () => {
 //404 error handlers
 app.use((req, res, next) => {
     res.status(404).send("Sorry can't find that!")
-});
-
-
-//Get API for database
-
-  app.get("/employees/:id", (req, res, next) => {
-    var params = [req.params.id]
-    child_db.get(`SELECT * FROM employees where employee_id = ?`, [req.params.id], (err, row) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        res.status(200).json(row);
-      });
 });
 
 
