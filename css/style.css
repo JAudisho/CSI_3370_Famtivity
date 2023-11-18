@@ -80,3 +80,18 @@ form {
   justify-content: center;
   margin-top: 30px;
 }
+
+.children-container {
+  list-style-type: none;
+  background-color: lightpink;
+  padding: 3%;
+  margin-top: 40px;
+}
+.children-container li {
+  font-family: "Caveat", cursive;
+  font-family: "Libre Baskerville", serif;
+  font-family: "Roboto", sans-serif;
+  padding-bottom: 2%;
+  font-size: 1rem;
+  color: rgb(10, 10, 10);
+}

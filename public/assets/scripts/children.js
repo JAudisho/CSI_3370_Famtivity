@@ -1,19 +1,23 @@
-document.querySelector(".btn-success").addEventListener("click", function () {
-  const form = document.getElementById("myform");
-  const formData = new FormData(form);
+const scheduleButton = document.querySelector("#scheduleButton");
+const entireForm = document.querySelector("#myform");
 
-  const section = document.createElement("div");
-
-  formData.forEach((value, key) => {
-    // Create a paragraph for each form field
-    const paragraph = document.createElement("p");
-    paragraph.innerHTML = `<span>${key}:</span> ${value}`;
-    section.appendChild(paragraph);
-  });
-
-  // Append the new section to the output container
-  document.querySelector(".output").appendChild(section);
-
-  // Clear the form
-  form.reset();
+scheduleButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  const formFields = Array.from(document.querySelectorAll(".form-control"));
+  const checkForInputValues = formFields.some((field) => (field.value = ""));
+  console.log(checkForInputValues);
+  if (!checkForInputValues) {
+    const dynamicHTML = `<div class="children-container">
+  <ul >
+    <li>${formFields[0].value}</li>
+    <li>${formFields[1].value}</li>
+    <li>${formFields[2].value}</li>
+    <li>${formFields[3].value}</li>
+  </ul>
+</div>`;
+    setTimeout(
+      () => entireForm.insertAdjacentHTML("afterend", dynamicHTML),
+      300
+    );
+  }
 });
