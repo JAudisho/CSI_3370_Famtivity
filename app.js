@@ -28,7 +28,10 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', sqlite3.OPEN_READWR
 //DYNAMIC PAGE ROUTES :
 
 //GET Route below to populate Childen into the HTML/EJS, & loads the Children page
+
+    //Set global JSON variable
     var children_data = [];
+
     app.get('/children.ejs', (req, res)=>{
     child_db.serialize(()=>{
         child_db.each('SELECT Child_First_Name, Child_Last_Name, Child_Age, Child_Description FROM child_db_data;',function (err, row){
@@ -50,7 +53,7 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', sqlite3.OPEN_READWR
         //Output JSON in totallity has been made to console sems to not go outside function
         console.log(JSON.stringify(children_data));
 
-        //Reset passing JSON var to empty to prevent looping append to JSON
+        //Reset passing JSON global var to empty to prevent looping append to JSON
         children_data = [];
         });
 
