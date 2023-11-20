@@ -29,7 +29,7 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', (err) => {
 
   app.get("/employees/:id", (req, res, next) => {
     var params = [req.params.id]
-    child_db.get(`SELECT * FROM employees where employee_id = ?`, [req.params.id], (err, row) => {
+    child_db.get(`SELECT * FROM child_db_data where Child_First_Name = ?`, [req.params.id], (err, row) => {
         if (err) {
           res.status(400).json({"error":err.message});
           return;
@@ -71,6 +71,19 @@ runScript('./some-script.js', function (err) {
 });
 }
 
+//Get API for database
+
+app.get("/employees/:id", (req, res, next) => {
+  var params = [req.params.id, req.params.id, req.params.id]
+  child_db.get(`SELECT * FROM employees where employee_id = ?`, [req.params.id], (err, row) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.status(200).json(row);
+    });
+});
+
 
 //Retrieve database for ordered list creation
 SELECT COUNT(1) from child_db_data;
@@ -84,4 +97,40 @@ child_db.close((err) => {
     console.log('Closed the database connection to child_db_data.');
   });
 
+  //Example Post function
+
+app.post('/', (req, res)=>{ 
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
   
+//Put API for database
+
+/*
+app.patch("/employees/", (req, res, next) => {
+    var reqBody = re.body;
+    db.run(`UPDATE employees set last_name = ?, first_name = ?, title = ?, address = ?, country_code = ? WHERE employee_id = ?`,
+        [reqBody.last_name, reqBody.first_name, reqBody.title, reqBody.address, reqBody.country_code, reqBody.employee_id],
+        function (err, result) {
+            if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ updatedID: this.changes });
+        });
+});
+
+//Delete API
+
+app.delete("/employees/:id", (req, res, next) => {
+    db.run(`DELETE FROM user WHERE id = ?`,
+        req.params.id,
+        function (err, result) {
+            if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ deletedID: this.changes })
+        });
+});
+
+*/
