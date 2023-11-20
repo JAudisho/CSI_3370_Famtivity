@@ -33,7 +33,13 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', sqlite3.OPEN_READWR
     var children_data = [];
 
     app.get('/children.ejs', (req, res)=>{
-    child_db.serialize(()=>{
+      
+    // Inserted Async function and let database = return : 
+    async function getDatabaseData() {
+      
+    //inserted try->catch
+    try {
+    let returnData = await child_db.serialize(()=>{
         child_db.each('SELECT Child_First_Name, Child_Last_Name, Child_Age, Child_Description FROM child_db_data;',function (err, row){
             if (err) {
                 res.status(400).json({ "Database data could not be retrieved!": err.message })
@@ -47,11 +53,21 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', sqlite3.OPEN_READWR
             });
         })
     }); 
-        //Send JSON to client for rendering on ejs file
-        res.render('children',{'children_data' : children_data} );
+        //Send JSON to client for rendering on ejs file -> added returnData?
+        res.render('children',{'children_data' : returnData.children_data} );
 
         //Output JSON in totallity has been made to console sems to not go outside function
         console.log(JSON.stringify(children_data));
+        
+        } //end of "try" here with "catch" below
+        catch (error) {
+          console.error('ERROR: ${error}');
+          }
+        
+        } //End of asynch here
+        
+        //Call Async Func
+        getDatabaseData();
 
         //Reset passing JSON global var to empty to prevent looping append to JSON
         children_data = [];
