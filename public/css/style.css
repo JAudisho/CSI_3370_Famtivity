@@ -80,3 +80,12 @@ form {
   justify-content: center;
   margin-top: 30px;
 }
+
+#Childlistitemdiv{
+  background-color: #ebf1ff;
+  border: 3px solid #178de8;
+}
+
+#Childlistitem{
+  margin: auto;
+}
