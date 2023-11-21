@@ -1,3 +1,9 @@
+/*
+__________________________________________________________________________________________________________________________________________
+                                              NOTE CODE BELOW IS FOR REFFERENCE
+                                                          -Drew                                                      =^-^=
+__________________________________________________________________________________________________________________________________________
+
 const sqlite3 = require('sqlite3').verbose();
 const express = require("express");
 var app = express();
@@ -38,41 +44,7 @@ let child_db = new sqlite3.Database('./db/child_db_data.db', (err) => {
       });
 });
 
-//Nested Scripts
-
-var childProcess = require('child_process');
-
-function runScript(scriptPath, callback) {
-
-  // keep track of whether callback has been invoked to prevent multiple invocations
-  var invoked = false;
-
-  var process = childProcess.fork(scriptPath);
-
-  // listen for errors as they may prevent the exit event from firing
-  process.on('error', function (err) {
-      if (invoked) return;
-      invoked = true;
-      callback(err);
-  });
-
-  // execute the callback once the process has finished running
-  process.on('exit', function (code) {
-      if (invoked) return;
-      invoked = true;
-      var err = code === 0 ? null : new Error('exit code ' + code);
-      callback(err);
-  });
-
-  // EXAMPLE Script to run in other and invoke a callback when complete:
-runScript('./some-script.js', function (err) {
-  if (err) throw err;
-  console.log('finished running some-script.js');
-});
-}
-
 //Get API for database
-
 app.get("/employees/:id", (req, res, next) => {
   var params = [req.params.id, req.params.id, req.params.id]
   child_db.get(`SELECT * FROM employees where employee_id = ?`, [req.params.id], (err, row) => {
@@ -84,12 +56,7 @@ app.get("/employees/:id", (req, res, next) => {
     });
 });
 
-
-//Retrieve database for ordered list creation
-SELECT COUNT(1) from child_db_data;
-
 //Close database connection
-
 child_db.close((err) => {
     if (err) {
       return console.error(err.message);
@@ -97,15 +64,12 @@ child_db.close((err) => {
     console.log('Closed the database connection to child_db_data.');
   });
 
-  //Example Post function
-
+//Example Post function
 app.post('/', (req, res)=>{ 
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
   
 //Put API for database
-
-/*
 app.patch("/employees/", (req, res, next) => {
     var reqBody = re.body;
     db.run(`UPDATE employees set last_name = ?, first_name = ?, title = ?, address = ?, country_code = ? WHERE employee_id = ?`,
@@ -120,7 +84,6 @@ app.patch("/employees/", (req, res, next) => {
 });
 
 //Delete API
-
 app.delete("/employees/:id", (req, res, next) => {
     db.run(`DELETE FROM user WHERE id = ?`,
         req.params.id,
@@ -132,5 +95,8 @@ app.delete("/employees/:id", (req, res, next) => {
             res.status(200).json({ deletedID: this.changes })
         });
 });
+
+//NOTE: Example code to check output JSON in totallity to confirm data was sent, or if there's an error with loading the database JSON
+console.log(JSON.stringify(children_data));
 
 */
