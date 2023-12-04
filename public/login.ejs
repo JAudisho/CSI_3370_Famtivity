@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Login</title>
+</head>
+
+<body class="text-center">
+    <main class="form-signin" >
+        <form id="loginform" action="/loginattempt" method="post">
+          <div>
+            <img src="/assets/images/stickPerson.png"/>
+            </div>
+            <h1 class="h3 mb-40 fw-normal">Please sign in</h1>
+
+            <div class="w-50 mx-auto form-floating">
+                <input name="usernameInpt" type="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Username</label>
+            </div>
+            <div class="w-50 mx-auto form-floating">
+                <input name="passwordInpt" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <button class="w-200 btn btn-lg btn-primary" type="submit" action="/index.ejs" method="post">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; Famtivity2023</p>
+        </form>
+    </main>

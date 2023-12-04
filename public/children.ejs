@@ -28,22 +28,24 @@
     <form id="myform" action="/children.ejs" method="post">
       <div class="form-group">
         <label for="exampleFormControlInput1">First Name</label>
-        <input type="text" class="form-control" id="childFirstName" name="childFirstName" />
+        <input type="text" class="form-control" id="childFirstName" name="childFirstName" required/>
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Last Name</label>
-        <input type="text" class="form-control" id="childLastName" name="childLastName" />
+        <input type="text" class="form-control" id="childLastName" name="childLastName" required/>
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Age</label>
-        <input type="text" class="form-control" id="childAge" name="childAge"/>
+        <input type="number" class="form-control" id="childAge" name="childAge" min="1" max="21" required/>
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Description</label>
-        <textarea class="form-control" id="childDesc" name="childDesc" rows="3"></textarea>
+        <textarea class="form-control" id="childDesc" name="childDesc" rows="3" required></textarea>
       </div>
       
-      <button type="submit" class="btn btn-primary" id="scheduleButton" action="/children.ejs">Schedule Activities</button>
+      <button type="submit" class="btn btn-primary" id="scheduleButton" action="/children.ejs">Enroll Child</button>
+      <script>
+        </script>
     </form>
   <div class="my-5">
     <H2>
