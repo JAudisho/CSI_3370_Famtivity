@@ -150,10 +150,15 @@ app.post('/children.ejs', (req, res, next) => {
     //Call refreshDb() method
     refreshDb();
 
-    //Send JSON to client for rendering of Children.ejs file after 20ms buffer
+    //Send reloads the db after 20ms buffer
     setTimeout(function(){
-        res.get('children',{'children_data' : children_data});
+        loadDb();
     },20);
+
+    //Send JSON to client for rendering of Children.ejs file after 40ms buffer
+    setTimeout(function(){
+        res.render('children',{'children_data' : children_data});
+    },40);
 });
 
 //Load the initial index page
